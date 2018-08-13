@@ -4,38 +4,30 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Person person = new Person(null, null, 0, 0);
         Scanner scan = new Scanner(System.in);
+        System.out.println("Podaj imię: ");
+        String firstName = scan.nextLine();
 
-        while (person.getFirstName() == null) {
-            try {
-                System.out.println("Podaj imię: ");
-                person.setFirstName(scan.nextLine());
-            } catch (NameUndefinedException ex) {
-                System.out.println("Podano za krótkie imię!");
-            }
-        }
+        System.out.println("Podaj nazwisko: ");
+        String lastName = scan.nextLine();
 
-        while (person.getLastName() == null) {
-            try {
-                System.out.println("Podaj nazwisko: ");
-                person.setLastName(scan.nextLine());
-            } catch (NameUndefinedException ex) {
-                System.out.println("Podano za krótkie nazwisko!");
-            }
-        }
+        System.out.println("Podaj wiek: ");
+        int age = scan.nextInt();
 
-        while (person.getAge() == 0) {
-            try {
-                System.out.println("Podaj wiek: ");
-                person.setAge(scan.nextInt());
-            } catch (IncorrectAgeException ex) {
-                System.out.println("Minimalny wiek to 1");
-            }
-        }
         System.out.println("Podaj pesel: ");
-        person.setPesel(scan.nextLong());
+        long pesel = scan.nextLong();
 
+        try {
+            Person person1 = new Person(firstName, lastName, age, pesel);
+            person1.setFirstName(firstName);
+            person1.setLastName(lastName);
+            person1.setAge(age);
+            person1.setPesel(pesel);
+            System.out.println("Dodano osobę: " + person1.toString());
+        } catch (NameUndefinedException | IncorrectAgeException ex) {
+            System.err.println("Błąd!");
+            System.err.println(ex.getMessage());
+        }
         scan.close();
     }
 }
